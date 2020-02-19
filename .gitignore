@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+*.tlog
+*.idb
+*.pdb
+*.ilk
+*.ipch
+*.db
+.vs/BW-RPG/v16/.suo

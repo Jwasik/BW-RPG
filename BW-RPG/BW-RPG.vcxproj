@@ -154,6 +154,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BW-RPG.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="Level.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="includes.h" />
+    <ClInclude Include="Level.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

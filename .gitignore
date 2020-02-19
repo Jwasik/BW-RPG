@@ -37,3 +37,5 @@
 *.ipch
 *.db
 .vs/BW-RPG/v16/.suo
+*.ipch
+*.db

@@ -6,7 +6,11 @@ class MultiDrawable :
 public:
 	MultiDrawable();
 	void draw(sf::RenderWindow&);
+
+	void setPosition(sf::Vector2f);
+	sf::Vector2f getPosition();
+	void move(sf::Vector2f);
 protected:
-	std::vector<std::shared_ptr<sf::Shape>> shapes;
+	std::vector < std::shared_ptr < sf::RectangleShape >> shapes;
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "includes.h"
 #include "Level.h"
+#include "Player.h"
 
 
 class GameClient

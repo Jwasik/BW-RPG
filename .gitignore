@@ -39,3 +39,8 @@
 .vs/BW-RPG/v16/.suo
 *.ipch
 *.db
+*.log
+*.idb
+*.pdb
+*.ilk
+*.pdb

@@ -6,10 +6,12 @@
 *.lo
 *.o
 *.obj
+*.iobj
 
 # Precompiled Headers
 *.gch
 *.pch
+
 
 # Compiled Dynamic libraries
 *.so
@@ -36,6 +38,7 @@
 *.ilk
 *.ipch
 *.db
+*.ipdb
 .vs/BW-RPG/v16/.suo
 *.ipch
 *.db

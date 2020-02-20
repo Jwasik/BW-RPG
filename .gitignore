@@ -44,3 +44,5 @@
 *.pdb
 *.ilk
 *.pdb
+*.lastbuildstate
+*.opendb

@@ -14,5 +14,6 @@ public:
 private:
 	sf::RenderWindow window;
 	Level level;
+	float DT;
 };
 

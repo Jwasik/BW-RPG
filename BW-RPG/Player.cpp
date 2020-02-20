@@ -22,19 +22,19 @@ void Player::event()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		this->move(sf::Vector2f(0,-1));
+		this->move(sf::Vector2f(0,-10));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->move(sf::Vector2f(-1, 0));
+		this->move(sf::Vector2f(-10, 0));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		this->move(sf::Vector2f(0, 1));
+		this->move(sf::Vector2f(0, 10));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->move(sf::Vector2f(1, 0));
+		this->move(sf::Vector2f(10, 0));
 	}
 }
 

@@ -27,12 +27,20 @@ Level::~Level()
 
 void Level::draw(sf::RenderWindow& window)
 {
+	//int ile = 0;
 	for (auto& column : squares)
 	{
 		for (auto& square : column)
 		{
-			window.draw(square);
+			if (square.getPosition().x + Level::squareSize >= window.getView().getCenter().x - window.getView().getSize().x / 2 && square.getPosition().x - Level::squareSize <= window.getView().getCenter().x + window.getView().getSize().x / 2)
+			{
+				if (square.getPosition().y + Level::squareSize >= window.getView().getCenter().y - window.getView().getSize().y / 2 && square.getPosition().y - Level::squareSize <= window.getView().getCenter().y + window.getView().getSize().y / 2)
+				{
+					window.draw(square);
+					//ile++;
+				}
+			}
 		}
 	}
-	
+	//std::cout << ile << std::endl;
 }

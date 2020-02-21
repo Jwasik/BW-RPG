@@ -158,6 +158,7 @@
     <ClCompile Include="Colissionable.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MultiDrawable.cpp" />
     <ClCompile Include="NPC.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Colissionable.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GameClient.h" />
+    <ClInclude Include="Hitbox.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MultiDrawable.h" />

@@ -15,8 +15,8 @@ public:
 	static unsigned int levelSizeX; //level size X in squares
 	static unsigned int levelSizeY; //level size Y in squares
 
-	sf::Sprite tile;
 	sf::Texture tileTexture;
+	sf::Sprite tile;
 
 	std::vector<std::vector<sf::RectangleShape>> squares;
 	std::vector<std::vector<int>>sq;

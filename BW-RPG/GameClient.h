@@ -14,6 +14,13 @@ public:
 private:
 	sf::RenderWindow window;
 	Level level;
-	float DT;
+	float deltaTime;
+
+	struct WindowSettings
+	{
+		unsigned int width = 800;
+		unsigned int height = 600;
+		bool fulscreen = 0;
+	}windowSettings;
 };
 

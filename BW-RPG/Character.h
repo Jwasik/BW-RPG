@@ -8,13 +8,16 @@ public:
 	//~Character();
 
 protected:
-	unsigned int Base_healh;
-	unsigned int Base_mana;
-	unsigned int Armour;
-	int Base_speed;
-	int Strength;
-	int Dexterity;
-	int Intelligence;
-	int Stamina;
+	unsigned int baseHealth;
+	unsigned int health;
+	unsigned int baseMana;
+	unsigned int mana;
+	unsigned int armour;
+	int baseSpeed;//px per second
+	int speed;
+	int strength;
+	int dexterity;
+	int intelligence;
+	int stamina;
 };
 

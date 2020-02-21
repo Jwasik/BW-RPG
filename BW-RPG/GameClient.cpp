@@ -24,6 +24,8 @@ void GameClient::run()
     while (this->window.isOpen())
     {
         this->DT = DT_Clock.restart().asSeconds();
+        this->window.setTitle("BW-RPG      FPS:  "+std::to_string(1/DT));
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -54,7 +56,7 @@ void GameClient::run()
         {
             pressed = false;
         }
-        p1.event();
+        p1.event(DT);
         k.setCenter(p1.getPosition());
         this->window.setView(k);
 

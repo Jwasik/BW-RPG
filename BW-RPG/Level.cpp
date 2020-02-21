@@ -13,10 +13,17 @@ Level::Level()
 		for (unsigned int j = 0; j < Level::levelSizeY; j++)
 		{
 			squares[i][j] = sf::RectangleShape(sf::Vector2f(Level::squareSize, Level::squareSize));
-			squares[i][j].setFillColor(sf::Color::Cyan);
 			squares[i][j].setPosition(sf::Vector2f(i* Level::squareSize, j * Level::squareSize));
-			squares[i][j].setOutlineColor(sf::Color::Red);
-			squares[i][j].setOutlineThickness(2);
+			if ((i + j) % 2)
+			{
+				squares[i][j].setFillColor(sf::Color::Cyan);
+			}
+			else
+			{
+				squares[i][j].setFillColor(sf::Color::Magenta);
+			}
+			//squares[i][j].setOutlineColor(sf::Color::Red);
+			//squares[i][j].setOutlineThickness(2);
 		}
 	}
 }
@@ -27,20 +34,18 @@ Level::~Level()
 
 void Level::draw(sf::RenderWindow& window)
 {
-	//int ile = 0;
 	for (auto& column : squares)
 	{
 		for (auto& square : column)
 		{
-			if (square.getPosition().x + Level::squareSize >= window.getView().getCenter().x - window.getView().getSize().x / 2 && square.getPosition().x - Level::squareSize <= window.getView().getCenter().x + window.getView().getSize().x / 2)
+			int ile = 0;
+			if (square.getPosition().x + Level::squareSize >= window.getView().getCenter().x - window.getView().getSize().x / 2 && square.getPosition().x <= window.getView().getCenter().x + window.getView().getSize().x / 2)
 			{
-				if (square.getPosition().y + Level::squareSize >= window.getView().getCenter().y - window.getView().getSize().y / 2 && square.getPosition().y - Level::squareSize <= window.getView().getCenter().y + window.getView().getSize().y / 2)
+				if (square.getPosition().y + Level::squareSize >= window.getView().getCenter().y - window.getView().getSize().y / 2 && square.getPosition().y <= window.getView().getCenter().y + window.getView().getSize().y / 2)
 				{
 					window.draw(square);
-					//ile++;
 				}
 			}
 		}
 	}
-	//std::cout << ile << std::endl;
 }

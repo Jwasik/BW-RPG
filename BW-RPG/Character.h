@@ -7,11 +7,11 @@ public:
 	//Character();
 	//~Character();
 
-private:
-	unsigned int Base_speed;
+protected:
 	unsigned int Base_healh;
 	unsigned int Base_mana;
 	unsigned int Armour;
+	int Base_speed;
 	int Strength;
 	int Dexterity;
 	int Intelligence;

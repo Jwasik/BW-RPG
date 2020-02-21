@@ -6,7 +6,21 @@ unsigned int Level::levelSizeY = 64;
 
 Level::Level()
 {
-	squares.resize(Level::levelSizeX);
+	Level::levelSizeX = 0;
+	Level::levelSizeY = 0;
+}
+
+Level::Level(unsigned int lsX, unsigned int lsY)
+{
+	Level::levelSizeX = lsX;
+	Level::levelSizeY = lsY;
+
+	squares.resize(Level::levelSizeX * Level::levelSizeY);
+	isSolid.resize(Level::levelSizeX * Level::levelSizeY);
+	tileID.resize(Level::levelSizeX * Level::levelSizeY);
+	tileHeight.resize(Level::levelSizeX * Level::levelSizeY);
+
+
 	for (unsigned int i=0;i< Level::levelSizeX; i++)
 	{
 		squares[i].resize(Level::levelSizeY);
@@ -48,4 +62,13 @@ void Level::draw(sf::RenderWindow& window)
 			}
 		}
 	}
+}
+
+void Level::generate(unsigned int)
+{
+}
+
+void Level::loadTextures()
+{
+
 }

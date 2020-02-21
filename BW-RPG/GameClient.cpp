@@ -3,6 +3,7 @@
 GameClient::GameClient()
 {
    this->window.create(sf::VideoMode(800,600),"BW-RPG" /*, sf::Style::Fullscreen*/);
+   this->level = Level(10, 10);
 }
 
 GameClient::~GameClient()

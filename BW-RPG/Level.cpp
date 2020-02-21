@@ -8,6 +8,8 @@ Level::Level()
 {
 	Level::levelSizeX = 0;
 	Level::levelSizeY = 0;
+	tileTexture.loadFromFile("tile1.png");
+	tile.setTexture(tileTexture);
 }
 
 Level::Level(unsigned int lsX, unsigned int lsY)
@@ -15,12 +17,15 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;
 
+	tileTexture.loadFromFile("tile1.png");
+	tile.setTexture(tileTexture);
+
 	squares.resize(Level::levelSizeX * Level::levelSizeY);
 	isSolid.resize(Level::levelSizeX * Level::levelSizeY);
 	tileID.resize(Level::levelSizeX * Level::levelSizeY);
 	tileHeight.resize(Level::levelSizeX * Level::levelSizeY);
 
-
+	squares.resize(Level::levelSizeX);
 	for (unsigned int i=0;i< Level::levelSizeX; i++)
 	{
 		squares[i].resize(Level::levelSizeY);
@@ -40,6 +45,15 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 			//squares[i][j].setOutlineThickness(2);
 		}
 	}
+	/*sq.resize(Level::levelSizeX);
+	for (unsigned int i = 0; i < Level::levelSizeX; i++)
+	{
+		sq[i].resize(Level::levelSizeY);
+		for (unsigned int j = 0; j < Level::levelSizeY; j++)
+		{
+			sq[i][j] = 1;
+		}
+	}*/
 }
 
 Level::~Level()
@@ -48,7 +62,7 @@ Level::~Level()
 
 void Level::draw(sf::RenderWindow& window)
 {
-	for (auto& column : squares)
+	/*for (auto& column : squares)
 	{
 		for (auto& square : column)
 		{
@@ -60,6 +74,24 @@ void Level::draw(sf::RenderWindow& window)
 					window.draw(square);
 				}
 			}
+		}
+	}*/
+	int x1 = (window.getView().getCenter().x - window.getView().getSize().x / 2) / 128;
+	int x2 = (window.getView().getCenter().x + window.getView().getSize().x / 2) / 128;
+	if (x1 < 0)x1 = 0;
+	//std::cout << x1 << " " << x2 << " ";
+	int y1 = (window.getView().getCenter().y - window.getView().getSize().y / 2) / 128;
+	int y2 = (window.getView().getCenter().y + window.getView().getSize().y / 2) / 128;
+	if (y1 < 0)y1 = 0;
+	//std::cout << y1 << " " << y2 << std::endl;
+
+	for (int i = x1; i <= x2 && i<Level::levelSizeX; i++)
+	{
+		for (int j = y1; j <= y2 && j < Level::levelSizeY; j++)
+		{
+			window.draw(squares[i][j]);
+			//tile.setPosition(sf::Vector2f(i * 128, j * 128));
+			//window.draw(tile);
 		}
 	}
 }

@@ -158,21 +158,27 @@
     <ClCompile Include="Colissionable.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MultiDrawable.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Colissionable.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GameClient.h" />
+    <ClInclude Include="Hitbox.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MultiDrawable.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

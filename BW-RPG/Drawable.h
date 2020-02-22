@@ -11,7 +11,7 @@ public:
 	void move(sf::Vector2f);
 
 private:
-	std::shared_ptr<sf::Shape> shape;
+	std::shared_ptr<sf::Sprite> sprite;
 protected:
 	sf::Vector2f position;
 };

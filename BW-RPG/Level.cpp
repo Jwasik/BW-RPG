@@ -15,6 +15,7 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;
 	this->loadTextures();
+	
 	//tileTexture.loadFromFile("tile1.png");
 	//tile.setTexture(tileTexture);
 	//tile = sf::Sprite(tileTexture);
@@ -45,18 +46,23 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 		}
 	}*/
 	sq.resize(Level::levelSizeX);
+	chunks.resize(Level::levelSizeX / 8);
 	for (unsigned int i = 0; i < Level::levelSizeX; i++)
 	{
 		sq[i].resize(Level::levelSizeY);
+		if(i< Level::levelSizeX / 8)chunks[i].resize(Level::levelSizeY / 8);
 		for (unsigned int j = 0; j < Level::levelSizeY; j++)
 		{
 			sq[i][j] = 1;
+			if (j < Level::levelSizeY / 8 && i < Level::levelSizeX / 8)chunks[i][j] = 0;
 		}
 	}
+	this->generate_village();
 }
 
 Level::~Level()
 {
+
 }
 
 void Level::draw(sf::RenderWindow& window)
@@ -92,6 +98,7 @@ void Level::draw(sf::RenderWindow& window)
 			//window.draw(squares[i][j]);
 			if(sq[i][j]==1)tile.setTexture(tileTexture[1]);
 			else if(sq[i][j]==0)tile.setTexture(tileTexture[0]);
+			else if(sq[i][j]==2)tile.setTexture(tileTexture[2]);
 			tile.setPosition(sf::Vector2f(i * 128, j * 128));
 			window.draw(tile);
 		}
@@ -100,28 +107,106 @@ void Level::draw(sf::RenderWindow& window)
 
 void Level::generate(unsigned int)
 {
+
 }
 
 void Level::loadTextures()
 {
-	tileTexture.resize(2);
+	tileTexture.resize(3);
 	tileTexture[0].loadFromFile("tile0.png");
 	tileTexture[1].loadFromFile("tile1.png");
+	tileTexture[2].loadFromFile("tile2.png");
 }
 
-void Level::changeTileID(sf::Vector2f mousePosition)
+void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 {
 	int i = mousePosition.x / 128;
 	int j = mousePosition.y / 128;
 	if (i >= 0 && j >= 0)
 	{
-		if (sq[i][j] == 1)
+		if (dir)
+		{
+			sq[i][j] = (sq[i][j] + 1) % 3;
+		}
+		else
+		{
+			sq[i][j] = (sq[i][j] + tileTexture.size()-1) % 3;
+		}
+		/*if (sq[i][j] == 1)
 		{
 			sq[i][j] = 0;
 		}
 		else
 		{
 			sq[i][j] = 1;
+		}*/
+	}
+
+}
+
+void Level::generate_village()
+{
+	std::srand(time(NULL));
+	//sf::Vector2f sB = { Level::levelSizeX / 8,Level::levelSizeY / 8 };
+	sf::Vector2i sB = { int(rand() % Level::levelSizeX) / 8, int(rand() % Level::levelSizeY) / 8 };
+	sf::Vector2i eB = { sB.x + 7,sB.y + 7 };
+	this->roadGenerate(sB, eB, 0);
+	std::cout << sB.x << " " << sB.y << std::endl;
+	std::cout << eB.x << " " << eB.y << std::endl;
+}
+
+void Level::roadGenerate(sf::Vector2i startBlock, sf::Vector2i endBlock, int id)
+{
+	int roadSquares = Level::levelSizeX / 64 * Level::levelSizeY / 64;
+	int roadLength = rand() % (Level::levelSizeX / 32 + Level::levelSizeY / 32)+1;
+
+	this->chunks[startBlock.x][startBlock.y] = 1;
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (i < 2 && (j<2 || j>5))
+			{
+				
+			}
+			else if (i > 5 && (j < 2 || j>5))
+			{
+
+			}
+			else
+			{
+				sq[(startBlock.x * 8) + i][(startBlock.x * 8) + j] = 0;
+			}
 		}
+	}
+
+
+	for (int i = 1; i <= roadLength; i++)
+	{
+		if (startBlock.x + i < chunks.size() && this->chunks[startBlock.x + i][startBlock.y] != 1)
+		{
+			//this->chunks[startBlock.x][startBlock.y] = 1;
+			//this->sq[((startBlock.x + i) * 8)][(startBlock.y * 8)+1] = 0;
+			for (int j = 0; j < 8; j++)
+			{
+				
+				for (int k = 2; k < 6; k++)
+				{
+					this->chunks[startBlock.x][startBlock.y+i] = 1;
+					this->sq[((startBlock.x + i) * 8)+j][(startBlock.y+i * 8)+k] = 0;
+				}
+			}
+		}
+	}
+
+
+	for (int i = 0; i < chunks.size(); i++)
+	{
+		for (int j = 0; j < chunks[i].size(); j++)
+		{
+			std::cout << chunks[i][j] << " ";
+		}
+		std::cout << std::endl;
 	}
 }

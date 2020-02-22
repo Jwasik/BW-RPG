@@ -3,7 +3,7 @@
 GameClient::GameClient()
 {
    this->window.create(sf::VideoMode(800,600),"BW-RPG" /*, sf::Style::Fullscreen*/);
-   this->level = Level(2048, 2048);
+   this->level = Level(128, 128);
 }
 
 GameClient::~GameClient()
@@ -67,7 +67,15 @@ void GameClient::run()
             if (!pressed)
             {
                 pressed = true;
-                this->level.changeTileID(worldPos);
+                this->level.changeTileID(worldPos,true);
+            }
+        }
+        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+        {
+            if (!pressed)
+            {
+                pressed = true;
+                this->level.changeTileID(worldPos,false);
             }
         }
         else

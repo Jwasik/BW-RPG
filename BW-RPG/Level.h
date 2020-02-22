@@ -11,11 +11,13 @@ public:
 	void draw(sf::RenderWindow&);
 	void generate(unsigned int);
 	void loadTextures();
+	void changeTileID(sf::Vector2f);
+
 	static unsigned int squareSize; //square size in px
 	static unsigned int levelSizeX; //level size X in squares
 	static unsigned int levelSizeY; //level size Y in squares
 
-	sf::Texture tileTexture;
+	std::vector<sf::Texture> tileTexture;
 	sf::Sprite tile;
 
 	std::vector<std::vector<sf::RectangleShape>> squares;

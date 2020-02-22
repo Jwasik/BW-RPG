@@ -3,7 +3,7 @@
 GameClient::GameClient()
 {
    this->window.create(sf::VideoMode(800,600),"BW-RPG" /*, sf::Style::Fullscreen*/);
-   this->level = Level(8192, 8192);
+   this->level = Level(2048, 2048);
 }
 
 GameClient::~GameClient()
@@ -33,6 +33,9 @@ void GameClient::run()
         this->deltaTime = DT_Clock.restart().asSeconds();
         this->window.setTitle("BW-RPG      FPS:  "+std::to_string(1/deltaTime));
 
+        sf::Vector2i pixelPos = sf::Mouse::getPosition(window);//get mouse position
+        sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);//convert to view position
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -59,6 +62,14 @@ void GameClient::run()
                 this->window.setView(k);
             }
         }
+        else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            if (!pressed)
+            {
+                pressed = true;
+                this->level.changeTileID(worldPos);
+            }
+        }
         else
         {
             pressed = false;
@@ -66,8 +77,6 @@ void GameClient::run()
         p1.event(deltaTime);
         k.setCenter(p1.getPosition());
 
-        sf::Vector2i pixelPos = sf::Mouse::getPosition(window);//get mouse position
-        sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);//convert to view position
 
         cursorPosition.setPosition(worldPos);
         this->window.setView(k);

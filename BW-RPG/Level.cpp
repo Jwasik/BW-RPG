@@ -14,10 +14,10 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 {
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;
-
-	tileTexture.loadFromFile("tile1.png");
+	this->loadTextures();
+	//tileTexture.loadFromFile("tile1.png");
 	//tile.setTexture(tileTexture);
-	tile = sf::Sprite(tileTexture);
+	//tile = sf::Sprite(tileTexture);
 
 	//squares.resize(Level::levelSizeX * Level::levelSizeY);
 	//isSolid.resize(Level::levelSizeX * Level::levelSizeY);
@@ -84,12 +84,14 @@ void Level::draw(sf::RenderWindow& window)
 	if (y1 < 0)y1 = 0;
 	//std::cout << y1 << " " << y2 << std::endl;
 
-	tile.setTexture(tileTexture);
+	//tile.setTexture(tileTexture);
 	for (int i = x1; i <= x2 && i<Level::levelSizeX; i++)
 	{
 		for (int j = y1; j <= y2 && j < Level::levelSizeY; j++)
 		{
 			//window.draw(squares[i][j]);
+			if(sq[i][j]==1)tile.setTexture(tileTexture[1]);
+			else if(sq[i][j]==0)tile.setTexture(tileTexture[0]);
 			tile.setPosition(sf::Vector2f(i * 128, j * 128));
 			window.draw(tile);
 		}
@@ -102,5 +104,24 @@ void Level::generate(unsigned int)
 
 void Level::loadTextures()
 {
+	tileTexture.resize(2);
+	tileTexture[0].loadFromFile("tile0.png");
+	tileTexture[1].loadFromFile("tile1.png");
+}
 
+void Level::changeTileID(sf::Vector2f mousePosition)
+{
+	int i = mousePosition.x / 128;
+	int j = mousePosition.y / 128;
+	if (i >= 0 && j >= 0)
+	{
+		if (sq[i][j] == 1)
+		{
+			sq[i][j] = 0;
+		}
+		else
+		{
+			sq[i][j] = 1;
+		}
+	}
 }

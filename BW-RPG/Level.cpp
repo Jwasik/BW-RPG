@@ -12,44 +12,21 @@ Level::Level()
 
 Level::Level(unsigned int lsX, unsigned int lsY)
 {
+	this->tiles.push_back(Tile(1,"tile0.png"));
+	this->tiles.push_back(Tile(2,"tile1.png"));
+	this->tiles.push_back(Tile(3,"tile2.png"));
+	this->tiles.push_back(Tile(4,"texture1.png"));
+
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;
-	this->loadTextures();
+
 	
-	//tileTexture.loadFromFile("tile1.png");
-	//tile.setTexture(tileTexture);
-	//tile = sf::Sprite(tileTexture);
-
-	//squares.resize(Level::levelSizeX * Level::levelSizeY);
-	//isSolid.resize(Level::levelSizeX * Level::levelSizeY);
-	//tileID.resize(Level::levelSizeX * Level::levelSizeY);
-	//tileHeight.resize(Level::levelSizeX * Level::levelSizeY);
-
-	/*squares.resize(Level::levelSizeX);
-	for (unsigned int i=0;i< Level::levelSizeX; i++)
-	{
-		squares[i].resize(Level::levelSizeY);
-		for (unsigned int j = 0; j < Level::levelSizeY; j++)
-		{
-			squares[i][j] = sf::RectangleShape(sf::Vector2f(Level::squareSize, Level::squareSize));
-			squares[i][j].setPosition(sf::Vector2f(i* Level::squareSize, j * Level::squareSize));
-			if ((i + j) % 2)
-			{
-				squares[i][j].setFillColor(sf::Color::Cyan);
-			}
-			else
-			{
-				squares[i][j].setFillColor(sf::Color::Magenta);
-			}
-			//squares[i][j].setOutlineColor(sf::Color::Red);
-			//squares[i][j].setOutlineThickness(2);
-		}
-	}*/
 	sq.resize(Level::levelSizeX);
 	chunks.resize(Level::levelSizeX / 8);
 	for (unsigned int i = 0; i < Level::levelSizeX; i++)
 	{
 		sq[i].resize(Level::levelSizeY);
+
 		if(i< Level::levelSizeX / 8)chunks[i].resize(Level::levelSizeY / 8);
 		for (unsigned int j = 0; j < Level::levelSizeY; j++)
 		{
@@ -67,40 +44,22 @@ Level::~Level()
 
 void Level::draw(sf::RenderWindow& window)
 {
-	/*for (auto& column : squares)
-	{
-		for (auto& square : column)
-		{
-			int ile = 0;
-			if (square.getPosition().x + Level::squareSize >= window.getView().getCenter().x - window.getView().getSize().x / 2 && square.getPosition().x <= window.getView().getCenter().x + window.getView().getSize().x / 2)
-			{
-				if (square.getPosition().y + Level::squareSize >= window.getView().getCenter().y - window.getView().getSize().y / 2 && square.getPosition().y <= window.getView().getCenter().y + window.getView().getSize().y / 2)
-				{
-					window.draw(square);
-				}
-			}
-		}
-	}*/
+	tiles[0].drawOnPosition(window, sf::Vector2f(-200,-200));
+
 	int x1 = (window.getView().getCenter().x - window.getView().getSize().x / 2) / 128;
 	int x2 = (window.getView().getCenter().x + window.getView().getSize().x / 2) / 128;
 	if (x1 < 0)x1 = 0;
-	//std::cout << x1 << " " << x2 << " ";
+
 	int y1 = (window.getView().getCenter().y - window.getView().getSize().y / 2) / 128;
 	int y2 = (window.getView().getCenter().y + window.getView().getSize().y / 2) / 128;
 	if (y1 < 0)y1 = 0;
-	//std::cout << y1 << " " << y2 << std::endl;
 
-	//tile.setTexture(tileTexture);
 	for (int i = x1; i <= x2 && i<Level::levelSizeX; i++)
 	{
 		for (int j = y1; j <= y2 && j < Level::levelSizeY; j++)
 		{
-			//window.draw(squares[i][j]);
-			if(sq[i][j]==1)tile.setTexture(tileTexture[1]);
-			else if(sq[i][j]==0)tile.setTexture(tileTexture[0]);
-			else if(sq[i][j]==2)tile.setTexture(tileTexture[2]);
-			tile.setPosition(sf::Vector2f(i * 128, j * 128));
-			window.draw(tile);
+			unsigned int tileId = this->getTilePosition(sq[i][j]);
+			tiles[tileId].drawOnPosition(window, sf::Vector2f(i * 128, j * 128));
 		}
 	}
 }
@@ -110,17 +69,9 @@ void Level::generate(unsigned int)
 
 }
 
-void Level::loadTextures()
-{
-	tileTexture.resize(3);
-	tileTexture[0].loadFromFile("tile0.png");
-	tileTexture[1].loadFromFile("tile1.png");
-	tileTexture[2].loadFromFile("tile2.png");
-}
-
 void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 {
-	int i = mousePosition.x / 128;
+	/*int i = mousePosition.x / 128;
 	int j = mousePosition.y / 128;
 	if (i >= 0 && j >= 0)
 	{
@@ -131,7 +82,7 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 		else
 		{
 			sq[i][j] = (sq[i][j] + tileTexture.size()-1) % 3;
-		}
+		}*/
 		/*if (sq[i][j] == 1)
 		{
 			sq[i][j] = 0;
@@ -140,7 +91,7 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 		{
 			sq[i][j] = 1;
 		}*/
-	}
+	//}
 
 }
 
@@ -153,6 +104,15 @@ void Level::generate_village()
 	this->roadGenerate(sB, eB, 0);
 	std::cout << sB.x << " " << sB.y << std::endl;
 	std::cout << eB.x << " " << eB.y << std::endl;
+}
+
+unsigned int Level::getTilePosition(int id)
+{
+	for (unsigned int i = 0; i < this->tiles.size(); i++)
+	{
+		if (tiles[i].getId() == id)return i;
+	}
+	return 0;
 }
 
 void Level::roadGenerate(sf::Vector2i startBlock, sf::Vector2i endBlock, int id)

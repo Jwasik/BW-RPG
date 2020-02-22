@@ -12,6 +12,10 @@ GameClient::~GameClient()
 
 void GameClient::run()
 {
+/*LOAD TILE TEXTURES*/
+    
+    
+
     Player p1;
     p1.setPosition(sf::Vector2f(0, 0));
     sf::Clock DT_Clock;

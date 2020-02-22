@@ -2,6 +2,7 @@
 #include "includes.h"
 #include "Level.h"
 #include "Player.h"
+#include "Tile.h"
 
 
 class GameClient

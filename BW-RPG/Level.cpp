@@ -84,8 +84,8 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 		{
 			sq[i][j] = (sq[i][j] + tiles.size()) % (tiles.size()+1);
 		}
+		std::cout << sq[i][j] << std::endl;
 	}
-	std::cout << sq[i][j] << std::endl;
 }
 
 unsigned int Level::getTilePosition(int id)

@@ -45,8 +45,6 @@ Level::~Level()
 
 void Level::draw(sf::RenderWindow& window)
 {
-	//tiles[0].drawOnPosition(window, sf::Vector2f(-200,-200));
-
 	int x1 = (window.getView().getCenter().x - window.getView().getSize().x / 2) / 128;
 	int x2 = (window.getView().getCenter().x + window.getView().getSize().x / 2) / 128;
 	if (x1 < 0)x1 = 0;
@@ -59,9 +57,10 @@ void Level::draw(sf::RenderWindow& window)
 	{
 		for (int j = y1; j <= y2 && j < Level::levelSizeY; j++)
 		{
+			if (sq[i][j] == 0)continue;
 			unsigned int tileId = this->getTilePosition(sq[i][j]);
 			//tutaj ten if gdy 0 czyli puste pole to ma nie rysowaæ
-			if (tileId != 0)tiles[tileId].drawOnPosition(window, sf::Vector2f(i * 128, j * 128));
+			tiles[tileId].drawOnPosition(window, sf::Vector2f(i * 128, j * 128));
 		}
 	}
 }

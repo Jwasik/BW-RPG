@@ -16,7 +16,8 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 	this->tiles.push_back(Tile(0,"texture1.png"));
 	this->tiles.push_back(Tile(1,"tile0.png"));
 	this->tiles.push_back(Tile(2,"tile1.png"));
-	this->tiles.push_back(Tile(3,"tile2.png"));
+	this->tiles.push_back(Tile(3,"tile2.png","wall1.png"));
+	//this->tiles[3].loadWallTexture("wall1.png");
 
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;

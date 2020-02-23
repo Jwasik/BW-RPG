@@ -13,10 +13,10 @@ Level::Level()
 
 Level::Level(unsigned int lsX, unsigned int lsY)
 {
-	this->tiles.push_back(Tile(0,"texture1.png"));
 	this->tiles.push_back(Tile(1,"tile0.png"));
 	this->tiles.push_back(Tile(2,"tile1.png"));
 	this->tiles.push_back(Tile(3,"tile2.png"));
+	this->tiles.push_back(Tile(4,"texture1.png"));
 
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;
@@ -60,7 +60,8 @@ void Level::draw(sf::RenderWindow& window)
 		for (int j = y1; j <= y2 && j < Level::levelSizeY; j++)
 		{
 			unsigned int tileId = this->getTilePosition(sq[i][j]);
-			tiles[tileId].drawOnPosition(window, sf::Vector2f(i * 128, j * 128));
+			//tutaj ten if gdy 0 czyli puste pole to ma nie rysowaæ
+			if (tileId != 0)tiles[tileId].drawOnPosition(window, sf::Vector2f(i * 128, j * 128));
 		}
 	}
 }
@@ -78,13 +79,14 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 	{
 		if (dir)
 		{
-			sq[i][j] = (sq[i][j] + 1) % tiles.size();
+			sq[i][j] = (sq[i][j] + 1) % (tiles.size()+1);
 		}
 		else
 		{
-			sq[i][j] = (sq[i][j] + tiles.size()-1) % tiles.size();
+			sq[i][j] = (sq[i][j] + tiles.size()) % (tiles.size()+1);
 		}
 	}
+	std::cout << sq[i][j] << std::endl;
 }
 
 unsigned int Level::getTilePosition(int id)
@@ -105,6 +107,7 @@ void Level::generate_village()
 	this->roadGenerate(sB, eB, 0);
 	//std::cout << sB.x << " " << sB.y << std::endl;
 	//std::cout << eB.x << " " << eB.y << std::endl;
+	std::cout << tiles.size() << std::endl;
 }
 
 void Level::roadGenerate(sf::Vector2i startBlock, sf::Vector2i endBlock, int id)

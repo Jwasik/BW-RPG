@@ -88,6 +88,26 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 	}
 }
 
+void Level::checkColission(Hitbox& hitbox1)
+{
+	bool colission = 0;
+	for (unsigned int i = 0; i < sq.size(); i++)
+	{
+		for (unsigned int j = 0; j < sq[i].size(); j++)
+		{
+			auto a = getTilePosition(sq[i][j]);
+			if (this->tiles[a].intersects(hitbox1, sf::Vector2f(i * 128, j * 128)))
+			{
+				//jeœli jest kolizja
+				colission = 1;
+				hitbox1.setColor(sf::Color::Red);
+			}
+		}
+	}
+
+	if(!colission)hitbox1.setColor(sf::Color::Transparent);
+}
+
 unsigned int Level::getTilePosition(int id)
 {
 	for (unsigned int i = 0; i < this->tiles.size(); i++)

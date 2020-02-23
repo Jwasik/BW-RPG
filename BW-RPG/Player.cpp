@@ -4,8 +4,8 @@ Player::Player()
 {
 	this->shapes.push_back(std::make_shared<sf::RectangleShape>());
 	this->shapes.push_back(std::make_shared<sf::RectangleShape>());
-	shapes[0]->setFillColor(sf::Color::Green);
-	shapes[1]->setFillColor(sf::Color::Red);
+	shapes[0]->setFillColor(sf::Color(0,255,0,127));
+	shapes[1]->setFillColor(sf::Color(255, 0, 0,127));
 	shapes[0]->setSize(sf::Vector2f(100,100));
 	shapes[1]->setSize(sf::Vector2f(100,100));
 	shapes[0]->setOrigin(sf::Vector2f(50,0));
@@ -13,6 +13,12 @@ Player::Player()
 	shapes[0]->setPosition(sf::Vector2f(0,0));
 	shapes[1]->setPosition(sf::Vector2f(0,0));
 	this->baseSpeed = 400;
+
+	this->hitbox.addShape(*shapes[0]);
+	this->hitbox.addShape(*shapes[1]);
+
+	shapes[0]->setFillColor(sf::Color(0, 0, 255));
+	shapes[1]->setFillColor(sf::Color(0, 0, 128));
 
 	for (auto& shape : shapes)
 	{
@@ -50,4 +56,5 @@ void Player::draw(sf::RenderWindow &window)
 	{
 		window.draw(*shape);
 	}
+	this->hitbox.draw(window, this->getPosition());
 }

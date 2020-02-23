@@ -15,8 +15,8 @@ Level::Level(unsigned int lsX, unsigned int lsY)
 {
 	this->tiles.push_back(Tile(1,"tile0.png"));
 	this->tiles.push_back(Tile(2,"tile1.png"));
-	this->tiles.push_back(Tile(3,"tile2.png"));
-	this->tiles.push_back(Tile(4,"texture1.png"));
+	this->tiles.push_back(Tile(3,"tile2.png","wall1.png"));
+	//this->tiles[3].loadWallTexture("wall1.png");
 
 	Level::levelSizeX = lsX;
 	Level::levelSizeY = lsY;
@@ -59,7 +59,7 @@ void Level::draw(sf::RenderWindow& window)
 		{
 			if (sq[i][j] == 0)continue;
 			unsigned int tileId = this->getTilePosition(sq[i][j]);
-			//tutaj ten if gdy 0 czyli puste pole to ma nie rysowaæ
+			//tutaj ten if gdy 0 czyli puste pole to ma nie rysowaï¿½
 			tiles[tileId].drawOnPosition(window, sf::Vector2f(i * 128, j * 128));
 		}
 	}
@@ -86,6 +86,26 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 		}
 		std::cout << sq[i][j] << std::endl;
 	}
+}
+
+void Level::checkColission(Hitbox& hitbox1)
+{
+	bool colission = 0;
+	for (unsigned int i = 0; i < sq.size(); i++)
+	{
+		for (unsigned int j = 0; j < sq[i].size(); j++)
+		{
+			auto a = getTilePosition(sq[i][j]);
+			if (this->tiles[a].intersects(hitbox1, sf::Vector2f(i * 128, j * 128)))
+			{
+				//jeï¿½li jest kolizja
+				colission = 1;
+				hitbox1.setColor(sf::Color::Red);
+			}
+		}
+	}
+
+	if(!colission)hitbox1.setColor(sf::Color::Transparent);
 }
 
 unsigned int Level::getTilePosition(int id)

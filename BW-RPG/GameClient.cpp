@@ -12,10 +12,6 @@ GameClient::~GameClient()
 
 void GameClient::run()
 {
-/*LOAD TILE TEXTURES*/
-    
-    
-
     Player p1;
     p1.setPosition(sf::Vector2f(0, 0));
     sf::Clock DT_Clock;
@@ -89,14 +85,23 @@ void GameClient::run()
         p1.event(deltaTime);
         k.setCenter(p1.getPosition());
 
+        /*CHECK COLISSION*/
+        
+        this->level.checkColission(p1.hitbox);
 
-        cursorPosition.setPosition(worldPos);
-        this->window.setView(k);
+
+
+
+        cursorPosition.setPosition(worldPos);//set red dot position
+        this->window.setView(k);//set view
 
         window.clear();
-        this->level.draw(this->window);
-        p1.draw(window);
-        window.draw(cursorPosition);
+        //draw everything
+
+        this->level.draw(this->window);//draw tiles
+        p1.draw(window);//draw player
+        window.draw(cursorPosition);//draw red dot
+
         window.display();
     }
 }

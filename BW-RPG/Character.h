@@ -19,5 +19,7 @@ protected:
 	int dexterity;
 	int intelligence;
 	int stamina;
+
+
 };
 

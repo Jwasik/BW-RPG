@@ -22,7 +22,7 @@ public:
 	std::vector<std::vector<int>>chunks;
 	std::vector<Tile>tiles;
 
-	void checkColission(Hitbox&);
+	bool checkColission(Hitbox&);
 private:
 	unsigned int getTilePosition(int);
 	void roadGenerate(sf::Vector2i, sf::Vector2i,int);

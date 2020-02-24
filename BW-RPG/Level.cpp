@@ -46,8 +46,6 @@ Level::~Level()
 
 void Level::draw(sf::RenderWindow& window)
 {
-	//tiles[0].drawOnPosition(window, sf::Vector2f(-200,-200));
-
 	int x1 = (window.getView().getCenter().x - window.getView().getSize().x / 2) / 128;
 	int x2 = (window.getView().getCenter().x + window.getView().getSize().x / 2) / 128;
 	if (x1 < 0)x1 = 0;
@@ -88,24 +86,37 @@ void Level::changeTileID(sf::Vector2f mousePosition,bool dir)
 	}
 }
 
-void Level::checkColission(Hitbox& hitbox1)
+bool Level::checkColission(Hitbox& hitbox1)
 {
+	auto pos = hitbox1.getPosition();//hitbox position, needed to search only neighbour hitboxes
+	sf::Vector2f first = sf::Vector2f((pos.x/128) - 1, (pos.y/128) - 1);
+	if (first.x < 0)first.x = 0;
+	if (first.y < 0)first.y = 0;
+	sf::Vector2f last = sf::Vector2f((pos.x/128) + 1, (pos.y/128) + 1);
+	if (last.x < 0)first.x = 0;
+	if (last.y < 0)first.y = 0;
+
+	int x = 0;
+
 	bool colission = 0;
-	for (unsigned int i = 0; i < sq.size(); i++)
+	for (unsigned int i = first.x; i < last.x && i < sq.size(); i++)
 	{
-		for (unsigned int j = 0; j < sq[i].size(); j++)
+		for (unsigned int j = first.y; j < last.y && j < sq[i].size(); j++)
 		{
+			if (i == pos.x && pos.y == pos.y)continue;
+
 			auto a = getTilePosition(sq[i][j]);
 			if (this->tiles[a].intersects(hitbox1, sf::Vector2f(i * 128, j * 128)))
 			{
 				//jeœli jest kolizja
 				colission = 1;
 				hitbox1.setColor(sf::Color::Red);
+				return true;
 			}
 		}
 	}
-
 	if(!colission)hitbox1.setColor(sf::Color::Transparent);
+	return false;
 }
 
 unsigned int Level::getTilePosition(int id)

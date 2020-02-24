@@ -82,15 +82,18 @@ void GameClient::run()
         {
             pressed = false;
         }
-        p1.event(deltaTime);
+
+        if (p1.event(deltaTime))
+        {
+            /*CHECK COLISSION*/
+            if (this->level.checkColission(p1.hitbox))
+            {
+                p1.reverseMove();
+            }
+        }
         k.setCenter(p1.getPosition());
 
-        /*CHECK COLISSION*/
         
-        this->level.checkColission(p1.hitbox);
-
-
-
 
         cursorPosition.setPosition(worldPos);//set red dot position
         this->window.setView(k);//set view

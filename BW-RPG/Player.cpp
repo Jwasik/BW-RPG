@@ -30,24 +30,52 @@ Player::~Player()
 {
 }
 
-void Player::event(const float& DT)
+bool Player::event(const float& DT)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	bool action = 0;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		this->move(sf::Vector2f((this->baseSpeed * DT) /-1.41421, (this->baseSpeed * DT)/-1.41421));
+		action = 1;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		this->move(sf::Vector2f((this->baseSpeed * DT) / 1.41421, (this->baseSpeed * DT) / -1.41421));
+		action = 1;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		this->move(sf::Vector2f((this->baseSpeed * DT) / -1.41421, (this->baseSpeed * DT) / 1.41421));
+		action = 1;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		this->move(sf::Vector2f((this->baseSpeed * DT) / 1.41421, (this->baseSpeed * DT) / 1.41421));
+		action = 1;
+	}
+
+
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		this->move(sf::Vector2f(0,-(this->baseSpeed*DT)));
+		action = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->move(sf::Vector2f(-(this->baseSpeed*DT), 0));
+		action = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		this->move(sf::Vector2f(0, this->baseSpeed*DT));
+		action = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		this->move(sf::Vector2f(this->baseSpeed*DT, 0));
+		action = 1;
 	}
+	return action;
 }
 
 void Player::draw(sf::RenderWindow &window)

@@ -35,12 +35,29 @@ bool Hitbox::intersects(Hitbox& secondHitbox)
 	return false;
 }
 
+bool Hitbox::intersectsFirst(Hitbox& secondHitbox)
+{
+	for (auto& h1 : this->shapes)
+	{
+		if (h1.getGlobalBounds().intersects(secondHitbox.shapes[0].getGlobalBounds()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Hitbox::setPosition(sf::Vector2f vec)
 {
 	for (auto& shape : shapes)
 	{
 		shape.setPosition(vec);
 	}
+}
+
+sf::Vector2f Hitbox::getPosition()
+{
+	return shapes[0].getPosition();
 }
 
 void Hitbox::setColor(const sf::Color& color)

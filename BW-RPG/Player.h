@@ -7,7 +7,7 @@ public:
 	Player();
 	~Player();
 
-	void event(const float&);
+	bool event(const float&);
 	void draw(sf::RenderWindow&);
 };
 

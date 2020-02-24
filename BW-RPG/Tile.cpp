@@ -109,5 +109,5 @@ bool Tile::intersects(Hitbox &secondHitbox,const sf::Vector2f &pos)
 {
 	if (this->hitbox == nullptr)return 0;
 	this->hitbox->setPosition(pos);
-	return this->hitbox->intersects(secondHitbox);
+	return this->hitbox->intersectsFirst(secondHitbox);
 }

@@ -6,6 +6,8 @@ class Character :
 public:
 	//Character();
 	//~Character();
+	void reverseMove();
+	void move(const sf::Vector2f&);
 
 protected:
 	unsigned int baseHealth;

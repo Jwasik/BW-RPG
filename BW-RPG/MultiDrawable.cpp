@@ -35,8 +35,3 @@ void MultiDrawable::move(sf::Vector2f vec)
 		shape->setPosition(shape->getPosition() + vec);
 	}
 }
-
-void MultiDrawable::reverseMove()
-{
-	this->move(sf::Vector2f((this->lastMove.x) *-1.1,(this->lastMove.y+1) *-1.1));
-}
